@@ -117,17 +117,23 @@ class chat_view:
     
     def display_welcome(self):
         """displays welcome message"""
-        print("=== OLLAMA CHATBOT ===")
-        print("Type 'quit' or 'exit' to end the conversation")
-        print("=" * 40)
+        config = self.view_model.config.settings
+        print("=== quickbotFx ===")
+        print()
+        print(f"model: {config['model']}")
+        print(f"context: {config['context_window']}")
+        print(f"max output tokens {config['max_predict']}")
+        print(f"temperature: {config['temperature']}")
+        print()
+        print("=" * 30)
     
     def get_user_input(self):
         """gets user input from command line"""
-        return input("\nYou: ").strip()
+        return input("\nUser: ").strip()
     
     def display_response(self, response):
         """displays bot response"""
-        print(f"\nBot: {response}")
+        print(f"\nAI: {response}")
     
     def run(self):
         """main chat loop"""
@@ -135,10 +141,6 @@ class chat_view:
         
         while True:
             user_input = self.get_user_input()
-            
-            if user_input.lower() in ['quit', 'exit']:
-                print("\nGoodbye!")
-                break
             
             if not user_input:
                 continue
