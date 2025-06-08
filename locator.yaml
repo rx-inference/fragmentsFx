@@ -1,0 +1,49 @@
+# locator.yaml
+# PURPOSE: AI navigation index for fragmentsFx repository
+
+# EXAMPLE FILE - CONTENT NOT YET IMPLEMENTED
+
+metadata:
+  version: "0.0.1"
+  total_fragments: 0
+  last_updated: "2024-01-15"
+
+fragments:
+  - id: "Fx0001"
+    name: "Simple Chat UI"
+    folder: "simple-chat-ui-Fx0001"
+    language: "HTML/CSS/JavaScript"
+    type: "web_component"
+    category: "ui"
+    description: "Minimal chat interface with message bubbles and input field"
+    use_cases: ["chatbot frontend", "messaging app", "customer support"]
+    dependencies: ["none"]
+    
+  - id: "Fx0002" 
+    name: "OpenAI Chatbot Backend"
+    folder: "openai-chatbot-backend-Fx0002"
+    language: "Python"
+    type: "backend_service"
+    category: "ai"
+    description: "Flask API that connects to OpenAI GPT for chat responses"
+    use_cases: ["chatbot backend", "ai integration", "api service"]
+    dependencies: ["flask", "openai", "python-dotenv"]
+    
+  - id: "Fx0003"
+    name: "Email Sender Utility"
+    folder: "email-sender-utility-Fx0003" 
+    language: "Python"
+    type: "utility"
+    category: "communication"
+    description: "SMTP email sending with templates and attachments"
+    use_cases: ["notifications", "user registration", "contact forms"]
+    dependencies: ["smtplib", "email"]
+
+categories:
+  ui: ["Fx0001"]
+  ai: ["Fx0002"] 
+  communication: ["Fx0003"]
+  
+languages:
+  javascript: ["Fx0001"]
+  python: ["Fx0002", "Fx0003"]
