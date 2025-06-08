@@ -6,7 +6,7 @@ this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.htm
 
 ## WORK IN PROGRESS
 
-## [v0.0.2](https://github.com/rx-inference/fragmentsRx/compare/v0.0.1...v0.0.2) - 2025-08-01
+## [v0.0.2](https://github.com/rx-inference/fragmentsRx/compare/v0.0.1...v0.0.2) - 2025-09-01
 
 ### updates / changes
 
@@ -19,7 +19,7 @@ this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.htm
 - added system prompt file as `system.prompt`.
 - added dependency management as `requirements.txt`.
 
-## [v0.0.1](https://github.com/rx-inference/fragmentsRx/compare/v0.0.0...v0.0.1) - 2025-07-01
+## [v0.0.1](https://github.com/rx-inference/fragmentsRx/compare/v0.0.0...v0.0.1) - 2025-08-01
 
 ### security
 
