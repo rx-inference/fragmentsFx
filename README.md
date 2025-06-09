@@ -6,7 +6,7 @@
 
   <h1>fragmentsFx</h1>
   <p>
-    <b>an open-source, ai-navigable library of code fragments designed for rapid, modular development.</b>
+    <b>an open-source, ai-navigable library of functional code fragments designed for rapid, modular development.</b>
   </p>
   
   <p>
