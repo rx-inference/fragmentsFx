@@ -129,8 +129,8 @@ class chat_view:
     def __init__(self):
         self.view_model = chat_view_model()
     
-    def display_welcome(self):
-        """displays welcome message"""
+    def info_header(self):
+        """displays info header with configuration settings"""
         config = self.view_model.config.settings
         print("=== quickbotFx ===")
         print()
@@ -139,6 +139,7 @@ class chat_view:
         print(f"max output tokens {config['max_predict']}")
         print(f"temperature: {config['temperature']}")
         print(f"streaming: {config.get('enable_streaming', False)}")
+        print(f"json output: {config.get('json_output', False)}")
         print()
         print("=" * 30)
     
@@ -158,7 +159,7 @@ class chat_view:
     
     def run(self):
         """main chat loop"""
-        self.display_welcome()
+        self.info_header()
         
         while True:
             user_input = self.get_user_input()

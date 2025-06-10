@@ -14,6 +14,3 @@ context_window: 4096     # max context window for the ai model.
 max_predict: 2048        # max tokens the ai model predicts.
 enable_streaming: true   # enables real-time message streaming from ollama.
 json_output: false       # forces ollama to output in json format.
-
-
-
