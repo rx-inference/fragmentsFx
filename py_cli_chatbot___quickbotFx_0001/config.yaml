@@ -5,3 +5,4 @@ temperature: 0.8         # ai model temperature (understandable as a kind of str
 context_window: 4096     # max context window for the ai model
 max_predict: 2048        # max tokens the ai model predicts.
 enable_streaming: true   # enables real-time message streaming from ollama
+show_labels: true        # shows "AI:" and "USER:" labels before messages

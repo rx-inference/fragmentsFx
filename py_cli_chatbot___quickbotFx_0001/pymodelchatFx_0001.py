@@ -26,6 +26,11 @@ class config_model:
             print(f"Error reading configuration file: {e}")
             sys.exit(1)
 
+    def get_bool(self, key, default=False):
+        """gets a configuration value as a boolean, handling string values"""
+        value = self.settings.get(key, default)
+        return str(value).lower() == 'true'
+
 # === PROMPT MODEL ===
 
 class prompt_model:
@@ -56,7 +61,7 @@ class ollama_model:
     def generate_response(self, messages, stream_callback=None):
         """generates response using ollama model"""
         try:
-            stream_enabled = bool(self.config.settings.get('enable_streaming', False))
+            stream_enabled = self.config.get_bool('enable_streaming', False)
             
             response = self.client.chat(
                 model=self.config.settings['model'],
@@ -142,11 +147,13 @@ class chat_view:
     
     def get_user_input(self):
         """gets user input from command line"""
-        return input("\nUSER: ").strip()
+        user_label = "USER: " if self.view_model.config.get_bool('show_labels', True) else ""
+        return input(f"\n{user_label}").strip()
     
     def display_response(self, response):
         """displays bot response"""
-        print(f"\nAI: {response}")
+        ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
+        print(f"\n{ai_label}{response}")
     
     def _stream_callback(self, content):
         """callback for streaming response chunks"""
@@ -163,8 +170,9 @@ class chat_view:
                 continue
             
             # --- CHECK STREAMING MODE ---
-            if self.view_model.config.settings.get('enable_streaming', False):
-                print("\nAI: ", end='', flush=True)
+            if self.view_model.config.get_bool('enable_streaming', False):
+                ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
+                print(f"\n{ai_label}", end='', flush=True)
                 response = self.view_model.process_user_input(user_input, self._stream_callback)
                 print()  # newline after streaming
             else:

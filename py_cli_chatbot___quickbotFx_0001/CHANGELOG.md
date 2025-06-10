@@ -12,6 +12,7 @@ this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.htm
 
 #### ADDED
 
+- added functionality to enable/disable user/ai interaction labels in chat display."
 - added feature to enable/disable ollama message streaming via `config.yaml`.
 
 #### UPDATES / CHANGES
