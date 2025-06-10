@@ -62,17 +62,23 @@ class ollama_model:
         """generates response using ollama model"""
         try:
             stream_enabled = self.config.get_bool('enable_streaming', False)
+            json_enabled = self.config.get_bool('json_output', False)
             
-            response = self.client.chat(
-                model=self.config.settings['model'],
-                messages=messages,
-                stream=stream_enabled,
-                options={
+            params = {
+                'model': self.config.settings['model'],
+                'messages': messages,
+                'stream': stream_enabled,
+                'options': {
                     'temperature': float(self.config.settings['temperature']),
                     'num_ctx': int(self.config.settings['context_window']),
                     'num_predict': int(self.config.settings['max_predict'])
                 }
-            )
+            }
+
+            if json_enabled:
+                params['format'] = 'json'
+            
+            response = self.client.chat(**params)
             
             if stream_enabled and stream_callback:
                 full_response = ""
