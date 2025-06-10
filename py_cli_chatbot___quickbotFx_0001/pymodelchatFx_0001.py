@@ -142,7 +142,7 @@ class chat_view:
     
     def get_user_input(self):
         """gets user input from command line"""
-        return input("\nUser: ").strip()
+        return input("\nUSER: ").strip()
     
     def display_response(self, response):
         """displays bot response"""
@@ -179,7 +179,7 @@ def main():
         chatbot = chat_view()
         chatbot.run()
     except KeyboardInterrupt:
-        print("\n\nGoodbye!")
+        pass
     except Exception as e:
         print(f"An error occurred: {e}")
 

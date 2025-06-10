@@ -8,35 +8,44 @@ this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.htm
 
 ### v0.0.4 - 2025-06-10
 
+###
+
 #### ADDED
 
 - added feature to enable/disable ollama message streaming via `config.yaml`.
 
-### v0.0.3 - 2025-06-09
-
 #### UPDATES / CHANGES
 
-- changed welcome message to display model configuration details instead of basic chatbot header
-- changed user/ai exchange markers from "you:"/"bot:" to "user:"/"ai:"
-
-#### ADDED
-
-- added model configuration display in welcome message showing model, context, max tokens, and temperature
-
-#### FIXED
-
-- fixed temperature type conversion error for ollama integration (convert to float)
-- fixed context_window and max_predict type conversion (convert to int)
+- updated: removed issue badge from README.md.
+- updated: removed links in CHANGELOG.md.
+- updated LICENSE, added copyright info.
+- changed: renamed folder and filename of Fx_0001 (python cli chatbot fragment) for better clarification.
 
 #### REMOVED
 
-- removed quit/exit command functionality - program now only exits with ctrl+c
+- removed "goodbye" message when ctrl+c quitting the program.
 
-### v0.0.2 - 2025-06-09
+### v0.0.3 - 2025-06-09
+
+#### ADDED
+
+- added model configuration display in welcome message showing model, context, max tokens, and temperature.
 
 #### UPDATES / CHANGES
 
-- changed switched from PyYAML to `strictyaml` for safer configuration parsing.
+- changed welcome message to display model configuration details instead of basic chatbot header.
+- changed user/ai exchange markers from "you:"/"bot:" to "user:"/"ai:".
+
+#### FIXED
+
+- fixed temperature type conversion error for ollama integration (convert to float).
+- fixed context_window and max_predict type conversion (convert to int).
+
+#### REMOVED
+
+- removed quit/exit command functionality - program now only exits with ctrl+c.
+
+### v0.0.2 - 2025-06-09
 
 #### ADDED
 
@@ -44,6 +53,10 @@ this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.htm
 - added model config file as `config.yaml`.
 - added system prompt file as `system.prompt`.
 - added dependency management as `requirements.txt`.
+
+#### UPDATES / CHANGES
+
+- changed switched from PyYAML to `strictyaml` for safer configuration parsing.
 
 ### v0.0.1 - 2025-06-08
 
