@@ -1,9 +1,6 @@
 <!-- PURPOSE: main readme for the fragmentsfx project. -->
 <div align="center">
 
-  <!-- add your logo here -->
-  <!-- <img src="path/to/logo.svg" alt="FragmentsFx Logo" width="150" /> -->
-
   <h1>fragmentsFx</h1>
   <p>
     <b>an open-source, ai-navigable library of functional code fragments designed for rapid, modular development.</b>
@@ -13,8 +10,6 @@
     <img src="https://img.shields.io/badge/work%20in%20progress-crimson" alt="work in progress">
     <a href="https://github.com/rx-inference/fragmentsFx/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License"></a>
     <a href="https://github.com/rx-inference/fragmentsFx/releases"><img src="https://img.shields.io/badge/version-v0.0.1-brightgreen" alt="Version"></a>
-    <a href="https://github.com/rx-inference/fragmentsFx/issues"><img src="https://img.shields.io/github/issues/rx-inference/fragmentsFx" alt="Issues"></a>
-    <!-- add more badges as needed: build status, version, etc. -->
   </p>
 
 </div>
