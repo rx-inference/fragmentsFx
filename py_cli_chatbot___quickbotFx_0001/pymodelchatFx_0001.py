@@ -53,19 +53,31 @@ class ollama_model:
         self.config = config
         self.client = ollama.Client()
     
-    def generate_response(self, messages):
+    def generate_response(self, messages, stream_callback=None):
         """generates response using ollama model"""
         try:
+            stream_enabled = bool(self.config.settings.get('enable_streaming', False))
+            
             response = self.client.chat(
                 model=self.config.settings['model'],
                 messages=messages,
+                stream=stream_enabled,
                 options={
                     'temperature': float(self.config.settings['temperature']),
                     'num_ctx': int(self.config.settings['context_window']),
                     'num_predict': int(self.config.settings['max_predict'])
                 }
             )
-            return response['message']['content']
+            
+            if stream_enabled and stream_callback:
+                full_response = ""
+                for chunk in response:
+                    content = chunk['message']['content']
+                    full_response += content
+                    stream_callback(content)
+                return full_response
+            else:
+                return response['message']['content']
         except Exception as e:
             return f"Error generating response: {e}"
 
@@ -88,7 +100,7 @@ class chat_view_model:
             'content': self.prompt.system_prompt
         })
     
-    def process_user_input(self, user_input):
+    def process_user_input(self, user_input, stream_callback=None):
         """processes user input and generates response"""
         # --- ADD USER MESSAGE ---
         self.conversation_history.append({
@@ -97,7 +109,7 @@ class chat_view_model:
         })
         
         # --- GENERATE RESPONSE ---
-        response = self.ollama.generate_response(self.conversation_history)
+        response = self.ollama.generate_response(self.conversation_history, stream_callback)
         
         # --- ADD ASSISTANT RESPONSE ---
         self.conversation_history.append({
@@ -124,6 +136,7 @@ class chat_view:
         print(f"context: {config['context_window']}")
         print(f"max output tokens {config['max_predict']}")
         print(f"temperature: {config['temperature']}")
+        print(f"streaming: {config.get('enable_streaming', False)}")
         print()
         print("=" * 30)
     
@@ -135,6 +148,10 @@ class chat_view:
         """displays bot response"""
         print(f"\nAI: {response}")
     
+    def _stream_callback(self, content):
+        """callback for streaming response chunks"""
+        print(content, end='', flush=True)
+    
     def run(self):
         """main chat loop"""
         self.display_welcome()
@@ -145,8 +162,14 @@ class chat_view:
             if not user_input:
                 continue
             
-            response = self.view_model.process_user_input(user_input)
-            self.display_response(response)
+            # --- CHECK STREAMING MODE ---
+            if self.view_model.config.settings.get('enable_streaming', False):
+                print("\nAI: ", end='', flush=True)
+                response = self.view_model.process_user_input(user_input, self._stream_callback)
+                print()  # newline after streaming
+            else:
+                response = self.view_model.process_user_input(user_input)
+                self.display_response(response)
 
 # === MAIN EXECUTION ===
 

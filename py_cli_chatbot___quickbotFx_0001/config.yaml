@@ -4,3 +4,4 @@ model: "gemma3:4b"       # ai model to load.
 temperature: 0.8         # ai model temperature (understandable as a kind of strictness / creativity value; 0.0 = most strict, 2.0 = most creative; values over 1.0 lead to glitchy responses).
 context_window: 4096     # max context window for the ai model
 max_predict: 2048        # max tokens the ai model predicts.
+enable_streaming: true   # enables real-time message streaming from ollama
