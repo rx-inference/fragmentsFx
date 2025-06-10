@@ -18,6 +18,8 @@ this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.htm
 
 #### UPDATES / CHANGES
 
+- refactored: `config.yaml` structure for better readability.
+- modified: moved system prompt to `config.yaml`; deleted `system.prompt` file.
 - updated: removed issue badge from README.md.
 - updated: removed links in CHANGELOG.md.
 - updated LICENSE, added copyright info.

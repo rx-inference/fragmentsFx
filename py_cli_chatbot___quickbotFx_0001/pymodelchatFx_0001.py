@@ -36,18 +36,9 @@ class config_model:
 class prompt_model:
     """handles loading and managing system prompts"""
     
-    def __init__(self, prompt_path="system.prompt"):
-        self.prompt_path = prompt_path
-        self.system_prompt = self._load_system_prompt()
-    
-    def _load_system_prompt(self):
-        """loads system prompt from file"""
-        try:
-            with open(self.prompt_path, 'r') as file:
-                return file.read().strip()
-        except FileNotFoundError:
-            print(f"Error: System prompt file {self.prompt_path} not found")
-            sys.exit(1)
+    def __init__(self, config):
+        self.config = config
+        self.system_prompt = self.config.settings['system_prompt']
 
 # === OLLAMA MODEL ===
 
@@ -99,7 +90,7 @@ class chat_view_model:
     
     def __init__(self):
         self.config = config_model()
-        self.prompt = prompt_model()
+        self.prompt = prompt_model(self.config)
         self.ollama = ollama_model(self.config)
         self.conversation_history = []
         self._initialize_conversation()
