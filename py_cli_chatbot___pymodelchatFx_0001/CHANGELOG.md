@@ -10,8 +10,9 @@ this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.htm
 
 ### v.0.4.x
 
-- doc: fixed version tagging to fit multi-project structure of the FragmentsFx repository for better clarification;;; |++ all changes made were documented, but last commit messages may not match their changes; this is caused intentionally by a correction in documentation, commits and versioning as a tradeoff to a rebase which would have potentially caused chaos. ++| ;;;
-- mod: Fx_0001 folder was renamed to its old name `py_cli_chatbot___quickbotFx_0001`; changed back to its new name `py_cli_chatbot___pymodelchatFx_0001`;;; |++ this was likely caused by a lack of attention or a previous rebase and wasn`t recognized until now ++| ;;;
+- mod: Fx_0001 folder was renamed to its old name `py_cli_chatbot___quickbotFx_0001`; changed back to its new name `py_cli_chatbot___pymodelchatFx_0001`;;; /+++ this was likely caused by a lack of attention or a previous rebase and wasn`t recognized until now +++/ ;;;
+- doc: changed delimiters in `CHANGELOG.md` to avoid conflicts + minor formatting correction;;;
+- doc: fixed version tagging to fit multi-project structure of the FragmentsFx repository for better clarification;;; /+++ all changes made were documented, but last commit messages may not match their changes; this is caused intentionally by a correction in documentation, commits and versioning as a tradeoff to a rebase which would have potentially caused chaos. +++/ ;;;
 - doc: added fragment name to this changelog;;;
 - doc: started to swap `.` for internally standardized `;;;` as sentence ending delimiters, for better machine readability;;;
 - doc: clarified change notation in `CHANGELOG.md`, documentation modification is now `doc` instead of `mod`;;;
