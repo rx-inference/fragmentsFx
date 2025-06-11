@@ -1,4 +1,4 @@
-# PURPOSE: simple command line chatbot using ollama
+# PURPOSE: simple command line chatbot pymodelchatFx_Fx0001
 
 import ollama
 import strictyaml
