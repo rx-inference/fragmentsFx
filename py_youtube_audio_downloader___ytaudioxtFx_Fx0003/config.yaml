@@ -1,0 +1,5 @@
+# PURPOSE: configuration settings for ytaudioxtFx_Fx0003
+
+default_audio_format: mp3
+default_audio_quality: 192
+output_folder: ./audio
