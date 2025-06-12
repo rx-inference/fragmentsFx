@@ -1,0 +1,4 @@
+# PURPOSE: configuration settings for ytxtFx_Fx0002
+
+default_transcript_language: EN
+output_folder: ./transcripts

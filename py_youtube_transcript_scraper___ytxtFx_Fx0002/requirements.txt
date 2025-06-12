@@ -1,1 +1,2 @@
 strictyaml
+youtube-transcript-api
