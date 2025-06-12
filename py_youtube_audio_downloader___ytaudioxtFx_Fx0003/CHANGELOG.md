@@ -10,7 +10,7 @@ this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.htm
 
 ### v0.0.x
 
--
+- Fx0003_doc: minor correction of excess content in 'README.md'. ;;;
 
 ## FOUNDATION
 

@@ -25,11 +25,6 @@ This software is a work in progress and currently in its prototyping phase. It i
 
 This fragment provides a command-line tool to extract audio tracks from YouTube videos and save them as MP3 files. It handles the download and conversion process automatically.
 
-## COPYRIGHT, LICENSE & CONTEXT
-
-This fragment is part of the rx-inference FragmentsRx suite, an open-source, AI-navigable library of functional code fragments. 
-
-
 ## COPYRIGHT CONTEXT & LICENSE
 
 Copyright 2025 - Robin Winkelmann | robinRx | rx-inference
