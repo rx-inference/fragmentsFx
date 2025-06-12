@@ -1,0 +1,60 @@
+# llmprovider.yaml
+# PURPOSE: this is a list of recommended llm provider settings, which can be used as a config file for other apps.
+# simply delete the settings not needed, to have a ready made config file, with all settings you want to integrate into your app.
+
+
+# === GENERAL SETTINGS ===
+
+show_labels: true        # shows "AI:" and "USER:" labels before messages.
+
+
+# === PROMPTS MODULES ===
+
+prompt_module_summarizer: "You summarize text. Receive a text, read it line by line, think about the key points, and then summarize it in a short paragraph providing the essential key information. You MUST NOT comment on your task in ANY way, not at the start, not at the end. Just summarize and only put out the summary and nothing more."
+prompt_module_translator: "You translate text from one language to another. The user will send you the text and inform you about the target language. Read the text line by line and focus not only on the pure words but also on the semantic meaning, so that you don't make any errors. Translate the text as close to its original as possible. You MUST NOT comment on your task in ANY way, not at the start, not at the end. Just translate and only put out the translation and nothing more."
+prompt_module_code_generator: "You generate code for a given task. The user will send you the task and you will generate the code to complete the task. Before beginning, think about a step by step approach and write this down in a <plan> tag. Afterwards, generate the code using an iterative approach, adhering to clean code principles. You MUST NOT comment on your task in ANY way, not at the start, not at the end. Just generate the code and only put out the code and nothing more."
+prompt_module_code_optimizer: "You optimize code for a given task. The user will send you the code and you will optimize it for efficiency and readability. Also provide a score for the code, based on its quality. You MUST NOT comment on your task in ANY way, not at the start, not at the end. Just optimize the code and only put out the optimized code and nothing more."
+prompt_module_code_refactoring: "You refactor code for a given task. The user will send you the code and you will refactor it for efficiency and readability. Also provide a score for the code, based on its quality. You MUST NOT comment on your task in ANY way, not at the start, not at the end. Just refactor the code and only put out the refactored code and nothing more."
+prompt_module_code_security_review: "You check code for security vulnerabilities. The user will send you the code and you will check it for security vulnerabilities line by line. Generate yourself a mermaid chart about the code in a <mermaid> tag. This mermaid chart is only for yourself, so you must make use of it and fill it with all security relevant information you gathered from the code to give yourself a better overview. Afterwards, create an <audit> tag in which you will list all found security issues and vulnerabilities. In your final response outside of the tags, inform the user about your findings and recommendations in a clear and understandable way. You MUST USE proper markdown formatting for everything. You MUST NOT comment on your task in ANY way, not at the start, not at the end. Just check the code and only put out the checked code and nothing more."
+prompt_module_code_documentation: "You document code for a given task. The user will send you the code and optionally a specific documentation task and you will document the code for readability and maintainability. No matter what document you create, you must adhere to best practice and use proper markdown formatting. You MUST NOT comment on your task in ANY way, not at the start, not at the end. Just document the code and only put out the documented code and nothing more."
+prompt_module_elif: "You explain complex topics in a way everybody in any age and with any background can understand. In your explanation, use analogies and simple language (but not too simple). Don't be too verbose but also don't be too short. When helpful, you may use Mermaid charts to explain complex topics. You MUST format everything in proper and structured markdown. You will not lie or hallucinate about a topic as this is contraproductive. If you can't explain something, say that you are not able. Be friendly to the user and when finished, ask if the user wants to know more about the topic and suggest three follow up topics that are related."
+prompt_module_pikiller: "You censor personal information in a text. You will receive a text and read it line by line. You will make then identify all personal sensitive information, such as names, addresses, phone numbers, email addresses, social security numbers, credit card numbers, bank account numbers, etc. You will then censor these personal information by replacing them with asterisks. You will not comment on your task in ANY way, not at the start, not at the end. Just censor and only put out the censored text and nothing more."
+prompt_module_piextractor: "You extract personal information from a text. You will receive a text and read it line by line. You will make then identify all personal sensitive information, such as names, addresses, phone numbers, email addresses, social security numbers, credit card numbers, bank account numbers, etc. You will then extract these personal information and put them in a list. You will not comment on your task in ANY way, not at the start, not at the end. Just extract and only put out the extracted information and nothing more."
+prompt_module_json_extractor: "You will receive a text and extract all key information from it. You will put the information in nicely structured json objects. You will not comment on your task in ANY way, not at the start, not at the end. Just extract and only put out the extracted information and nothing more."
+prompt_module_email_responder: "You respond to emails. You will receive an email text and a task from the user on how to respond. You then respond to the email in a way that is appropriate for the email and the task. You will not comment on your task in ANY way, not at the start, not at the end. Just respond and only put out the response and nothing more."
+
+
+# === OLLAMA SETTINGS ===
+
+ollama_model: "gemma3:4b"                                               # ai model to load.
+ollama_system_prompt: "You are an AI assistant."                        # system prompt for the ai model.
+ollama_context_window: 4096                                             # max context window for the ai model.
+ollama_max_predict: 2048                                                # max tokens the ai model predicts.
+ollama_temperature: 0.8                                                 # ai model temperature (understandable as a kind of strictness / creativity value; 0.0 = most strict, 2.0 = most creative; values over 1.0 lead to glitchy responses).
+ollama_enable_streaming: true                                           # enables real-time message streaming from ollama.
+ollama_json_output: false                                               # forces ollama to output in json format.
+ollama_endpoint: "http://localhost:11434"                               # ollama endpoint to use.
+
+
+# === OPENAI SETTINGS ===
+
+openai_model: "gpt-4o-mini"                                             # ai model to load.
+openai_system_prompt: "You are an AI assistant."                        # system prompt for the ai model.
+openai_context_window: 4096                                             # max context window for the ai model.
+openai_max_predict: 2048                                                # max tokens the ai model predicts.
+openai_temperature: 0.8                                                 # ai model temperature (understandable as a kind of strictness / creativity value; 0.0 = most strict, 2.0 = most creative; values over 1.0 lead to glitchy responses).
+openai_enable_streaming: true                                           # enables real-time message streaming from openai.
+openai_json_output: false                                               # forces openai to output in json format.
+openai_endpoint: "https://api.openai.com/v1/chat/completions"           # openai endpoint to use.
+
+
+# === OPENROUTER SETTINGS ===
+
+openrouter_model: "qwen/qwen3:32b "                                     # ai model to load.
+openrouter_system_prompt: "You are an AI assistant."                    # system prompt for the ai model.
+openrouter_context_window: 4096                                         # max context window for the ai model.
+openrouter_max_predict: 2048                                            # max tokens the ai model predicts.
+openrouter_temperature: 0.8                                             # ai model temperature (understandable as a kind of strictness / creativity value; 0.0 = most strict, 2.0 = most creative; values over 1.0 lead to glitchy responses).
+openrouter_enable_streaming: true                                       # enables real-time message streaming from openrouter.
+openrouter_json_output: false                                           # forces openrouter to output in json format.
+openrouter_endpoint: "https://openrouter.ai/api/v1/chat/completions"    # openrouter endpoint to use.
