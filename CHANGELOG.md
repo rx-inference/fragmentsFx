@@ -8,10 +8,11 @@ this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.htm
 
 ### 2025-06-15
 
-### v0.4.2
+### v0.4.3
 
-- Fx_root_mod: reworked versioning convention: adhering to semver, but including minor changes, and also minor documentation changes, to keep the commit history in regards to all subfolders and fragment modifications structured and comprehensible. ;;;
 - Fx_root_add: added this changelog. ;;;
+- Fx_root_mod: reworked versioning convention: adhering to semver, but including minor changes, and also minor documentation changes, to keep the commit history in regards to all subfolders and fragment modifications structured and comprehensible. ;;;
+- Fx_root_doc: corrected order of changes in this changelog for better readability. ;;;
 
 ### 2025-06-12
 
