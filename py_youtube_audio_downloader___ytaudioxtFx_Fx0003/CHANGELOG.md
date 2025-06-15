@@ -11,6 +11,12 @@ notable changes will be documented. this project adheres to [semantic versioning
 
 ## PROTOTYPING
 
+### 2025-06-16
+
+### v0.0.4
+
+- Fx0003_doc: minor spelling corrections in this changelog. ;;;
+
 ### 2025-06-15
 
 ### v0.0.3
