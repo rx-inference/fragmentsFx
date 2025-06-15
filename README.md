@@ -9,7 +9,7 @@
   <p>
     <img src="https://img.shields.io/badge/work%20in%20progress-crimson" alt="work in progress">
     <a href="https://github.com/rx-inference/fragmentsFx/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License"></a>
-    <a href="https://github.com/rx-inference/fragmentsFx/releases"><img src="https://img.shields.io/badge/version-v0.0.1-brightgreen" alt="Version"></a>
+    <a href="https://github.com/rx-inference/fragmentsFx/releases"><img src="https://img.shields.io/badge/version-v0.4.1-brightgreen" alt="Version"></a>
   </p>
 
 </div>
