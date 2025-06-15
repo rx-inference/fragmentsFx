@@ -8,7 +8,7 @@ this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.htm
 
 ### 2025-06-12
 
-### v0.0.x
+### v0.0.2
 
 - Fx0003_doc: minor correction of excess content in 'README.md'. ;;;
 
