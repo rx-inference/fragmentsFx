@@ -13,6 +13,10 @@ notable changes will be documented. this project adheres to [semantic versioning
 
 ### 2025-06-15
 
+### v0.4.5
+
+- Fx_root_doc: fixed version number. ;;;
+
 ### v0.4.4
 
 - Fx_root_add: added info about change classification hierarchy to this changelog. ;;;
