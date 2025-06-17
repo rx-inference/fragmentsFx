@@ -15,6 +15,7 @@ notable changes will be documented. this project adheres to [semantic versioning
 
 ### v0.4.x
 
+- Fx0001_add: added functionality and config entry to enable/disable thinking in reasoning models. ;;;
 - Fx0001_mod: changed header info from 'quickbotFx' ---> 'pymodelchatFx_Fx0001'. ;;;
 
 ### 2025-06-16

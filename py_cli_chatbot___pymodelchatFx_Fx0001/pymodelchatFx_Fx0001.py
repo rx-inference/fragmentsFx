@@ -128,6 +128,7 @@ class chat_view:
     
     def __init__(self):
         self.view_model = chat_view_model()
+        self.is_first_chunk = True
     
     def info_header(self):
         """displays info header with configuration settings"""
@@ -141,6 +142,7 @@ class chat_view:
         print(f"temperature: {config['temperature']}")
         print(f"streaming: {config.get('enable_streaming', False)}")
         print(f"json output: {config.get('json_output', False)}")
+        print(f"reasoning: {config.get('reasoning_active', False)}")
         print()
         print("=" * 30)
     
@@ -156,6 +158,16 @@ class chat_view:
     
     def _stream_callback(self, content):
         """callback for streaming response chunks"""
+        if self.is_first_chunk:
+            show_thinking = self.view_model.config.get_bool('reasoning_active', False)
+            if show_thinking:
+                # clear "thinking..." line
+                print("\r" + " " * 20 + "\r", end="")
+            
+            ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
+            print(f"{ai_label}", end='', flush=True)
+            self.is_first_chunk = False
+
         print(content, end='', flush=True)
     
     def run(self):
@@ -168,10 +180,14 @@ class chat_view:
             if not user_input:
                 continue
             
+            self.is_first_chunk = True
+            
             # --- CHECK STREAMING MODE ---
             if self.view_model.config.get_bool('enable_streaming', False):
-                ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
-                print(f"\n{ai_label}", end='', flush=True)
+                show_thinking = self.view_model.config.get_bool('reasoning_active', False)
+                if show_thinking:
+                    print("\nThinking...", end="", flush=True)
+
                 response = self.view_model.process_user_input(user_input, self._stream_callback)
                 print()  # newline after streaming
             else:
