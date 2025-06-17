@@ -132,7 +132,8 @@ class chat_view:
     def info_header(self):
         """displays info header with configuration settings"""
         config = self.view_model.config.settings
-        print("=== quickbotFx ===")
+        print()
+        print("pymodelchatFx_Fx0001")
         print()
         print(f"model: {config['model']}")
         print(f"context: {config['context_window']}")

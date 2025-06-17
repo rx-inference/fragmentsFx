@@ -11,6 +11,12 @@ notable changes will be documented. this project adheres to [semantic versioning
 
 ## PROTOTYPING
 
+### ### 2025-06-17
+
+### v0.4.x
+
+- Fx0001_mod: changed header info from 'quickbotFx' ---> 'pymodelchatFx_Fx0001'. ;;;
+
 ### 2025-06-16
 
 ### v.0.4.8
