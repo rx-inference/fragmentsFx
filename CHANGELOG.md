@@ -11,6 +11,12 @@ notable changes will be documented. this project adheres to [semantic versioning
 
 ## FOUNDATION
 
+### 2025-06-17
+
+### v0.4.7
+
+- Fx_root_doc: refined 'README.md': minor spellcheck corrections + added apache 2.0 license information section. ;;;
+
 ### 2025-06-16
 
 ### v0.4.6
