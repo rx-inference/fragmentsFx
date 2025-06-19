@@ -50,39 +50,27 @@ class ollama_model:
         self.config = config
         self.client = ollama.Client()
     
-    def generate_response(self, messages, stream_callback=None):
-        """generates response using ollama model"""
+    def generate_response_stream(self, messages):
+        """generates response using ollama model, yielding chunks for streaming"""
         try:
-            stream_enabled = self.config.get_bool('enable_streaming', False)
-            json_enabled = self.config.get_bool('json_output', False)
-            
             params = {
                 'model': self.config.settings['model'],
                 'messages': messages,
-                'stream': stream_enabled,
+                'stream': True,
                 'options': {
                     'temperature': float(self.config.settings['temperature']),
                     'num_ctx': int(self.config.settings['context_window']),
                     'num_predict': int(self.config.settings['max_predict'])
                 }
             }
-
-            if json_enabled:
+            if self.config.get_bool('json_output', False):
                 params['format'] = 'json'
             
-            response = self.client.chat(**params)
-            
-            if stream_enabled and stream_callback:
-                full_response = ""
-                for chunk in response:
-                    content = chunk['message']['content']
-                    full_response += content
-                    stream_callback(content)
-                return full_response
-            else:
-                return response['message']['content']
+            for chunk in self.client.chat(**params):
+                yield chunk
+
         except Exception as e:
-            return f"Error generating response: {e}"
+            yield {'message': {'content': f"\nError generating response: {e}\n"}, 'done': True}
 
 # === CHAT VIEW MODEL ===
 
@@ -102,25 +90,6 @@ class chat_view_model:
             'role': 'system',
             'content': self.prompt.system_prompt
         })
-    
-    def process_user_input(self, user_input, stream_callback=None):
-        """processes user input and generates response"""
-        # --- ADD USER MESSAGE ---
-        self.conversation_history.append({
-            'role': 'user',
-            'content': user_input
-        })
-        
-        # --- GENERATE RESPONSE ---
-        response = self.ollama.generate_response(self.conversation_history, stream_callback)
-        
-        # --- ADD ASSISTANT RESPONSE ---
-        self.conversation_history.append({
-            'role': 'assistant',
-            'content': response
-        })
-        
-        return response
 
 # === CHAT VIEW ===
 
@@ -129,42 +98,13 @@ class chat_view:
     
     def __init__(self):
         self.view_model = chat_view_model()
-        self.is_first_chunk = True
 
-    # --- HELPER FUNCTIONS --------------------------------------------------
-
-    def _extract_reasoning(self, text):
-        """extracts reasoning content from known reasoning tags and returns (reasoning, rest)"""
-        reasoning_tags = [
-            "think", "thinking", "thoughts", "dreaming", "reasoning", "reason",
-            "reflecting", "reflection", "contemplating", "contemplation", "cot", "chainofthought"
-        ]
-        import re
-        for tag in reasoning_tags:
-            # match <tag>...</tag> (non-greedy)
-            pattern = rf"<{tag}[^>]*?>(.*?)</{tag}>"
-            match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
-            if match:
-                reasoning = match.group(1).strip()
-                # remove the reasoning tag and its content from the text
-                rest = re.sub(pattern, '', text, flags=re.IGNORECASE | re.DOTALL).strip()
-                return reasoning, rest
-        return None, text
-
-    def _sanitize_output(self, text):
-        """removes xml-style tags from text when hide_xmltags is enabled"""
-        if not self.view_model.config.get_bool('hide_xmltags', False):
-            return text
-        # pattern matches <tag ...> or </tag> with letters/digits/underscore
-        return re.sub(r'</?\w+[^>]*?>', '', text)
-    
     def info_header(self):
         """displays info header with configuration settings"""
         config = self.view_model.config.settings
         print()
         print("pymodelchatFx_Fx0001")
         print()
-        # print every config entry
         for key, value in config.items():
             print(f"{key}: {value}")
         print()
@@ -173,74 +113,140 @@ class chat_view:
     def get_user_input(self):
         """gets user input from command line"""
         user_label = "USER: " if self.view_model.config.get_bool('show_labels', True) else ""
-        return input(f"\n{user_label}").strip()
-    
-    def display_response(self, response):
-        """displays bot response with reasoning in a separate area if present"""
-        ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
-        reasoning, rest = self._extract_reasoning(response)
-        if reasoning:
-            print(f"\nREASONING: {reasoning}")
-            print(f"\n{ai_label}{rest}", end='')
-        else:
-            print(f"\n{ai_label}{response}", end='')
-    
-    def _stream_callback(self, content):
-        """callback for streaming response chunks (buffered for reasoning extraction)"""
-        # buffer all content for post-processing
-        if not hasattr(self, "_stream_buffer"):
-            self._stream_buffer = ""
-        self._stream_buffer += content
+        return input(f"{user_label}").strip()
     
     def run(self):
         """main chat loop"""
         self.info_header()
         
+        reasoning_tags = [
+            "think", "thinking", "thoughts", "dreaming", "reasoning", "reason",
+            "reflecting", "reflection", "contemplating", "contemplation", "cot", "chainofthought"
+        ]
+        
         while True:
-            user_input = self.get_user_input()
-            
-            if not user_input:
-                continue
-            
-            self.is_first_chunk = True
-            
-            # --- CHECK STREAMING MODE ---
-            if self.view_model.config.get_bool('enable_streaming', False):
-                show_thinking = self.view_model.config.get_bool('reasoning_active', False)
-                if show_thinking:
-                    pass
+            try:
+                user_input = self.get_user_input()
+                if not user_input:
+                    continue
 
-                # clear stream buffer before streaming
-                if hasattr(self, "_stream_buffer"):
-                    del self._stream_buffer
+                self.view_model.conversation_history.append({'role': 'user', 'content': user_input})
+                print()  # blank line separator after user input
+                
+                stream = self.view_model.ollama.generate_response_stream(self.view_model.conversation_history)
+                
+                if not self.view_model.config.get_bool('reasoning_active', False):
+                    # --- Non-reasoning simple streaming ---
+                    ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
+                    print(f"{ai_label}", end="")
+                    full_response = ""
+                    first_chunk = True
+                    for chunk_data in stream:
+                        content = chunk_data['message']['content']
+                        if first_chunk:
+                            content = content.lstrip()
+                            first_chunk = False
+                        print(content, end="", flush=True)
+                        full_response += content
+                    print() # final newline for next prompt
+                    print() # extra blank line separator between sections
+                    self.view_model.conversation_history.append({'role': 'assistant', 'content': full_response})
+                    continue
 
-                self.view_model.process_user_input(user_input, self._stream_callback)
-                # after streaming, process the full response
-                full_response = getattr(self, "_stream_buffer", "")
-                reasoning, rest = self._extract_reasoning(full_response)
-                if reasoning:
-                    print(f"\nREASONING: {reasoning}")
-                    ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
-                    print(f"\n{ai_label}{rest}", end='')
-                else:
-                    ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
-                    print(f"\n{ai_label}{full_response}", end='')
-                print()
-            else:
-                response = self.view_model.process_user_input(user_input)
-                self.display_response(response)
+                # --- Real-time Reasoning Stream Parsing ---
+                current_state = "INITIAL"
+                buffer = ""
+                full_response_for_history = ""
+                answer_for_history = ""
+                active_reasoning_tag = None
+                
+                reasoning_printed = False
+                ai_printed = False
+                answer_started = False  # tracks first non-whitespace answer chunk
+                reasoning_started = False  # tracks first non-whitespace reasoning chunk
+
+                for chunk_data in stream:
+                    content = chunk_data['message']['content']
+                    full_response_for_history += content
+                    buffer += content
+                    
+                    if current_state == "INITIAL":
+                        for tag in reasoning_tags:
+                            open_tag = f"<{tag}>"
+                            if open_tag in buffer:
+                                reasoning_content = buffer.split(open_tag, 1)[1]
+                                buffer = reasoning_content
+                                current_state = "REASONING"
+                                active_reasoning_tag = tag
+                                break
+                    
+                    if current_state == "REASONING":
+                        if not reasoning_printed:
+                            print("REASONING: ", end="")
+                            buffer = buffer.lstrip()
+                            if buffer:
+                                reasoning_started = True
+                            reasoning_printed = True
+                        
+                        close_tag = f"</{active_reasoning_tag}>"
+                        if close_tag in buffer:
+                            reasoning_part, rest = buffer.split(close_tag, 1)
+                            if not reasoning_started:
+                                reasoning_part = reasoning_part.lstrip()
+                                if reasoning_part:
+                                    reasoning_started = True
+                            print(reasoning_part, end="", flush=True)
+                            buffer = rest
+                            current_state = "ANSWERING"
+                        else:
+                            if not reasoning_started:
+                                buffer = buffer.lstrip()
+                                if buffer:
+                                    reasoning_started = True
+                            print(buffer, end="", flush=True)
+                            buffer = ""
+
+                    if current_state == "ANSWERING":
+                        if not ai_printed:
+                            print("AI: ", end="")
+                            ai_printed = True
+                            answer_started = False  # reset for new answer section
+                        
+                        # remove leading whitespace/newlines before the first answer chunk
+                        if not answer_started:
+                            buffer = buffer.lstrip()
+                            if buffer:
+                                answer_started = True
+
+                        if buffer:
+                            print(buffer, end="", flush=True)
+                            answer_for_history += buffer
+                        buffer = ""
+                
+                # final print for any remaining buffer
+                if buffer and current_state == "ANSWERING":
+                    if not answer_started:
+                        buffer = buffer.lstrip()
+                    print(buffer, end="", flush=True)
+                    answer_for_history += buffer
+
+                print() # newline for next prompt
+                print() # extra blank line separator
+                self.view_model.conversation_history.append({'role': 'assistant', 'content': answer_for_history})
+
+            except KeyboardInterrupt:
+                print("\n\nExiting chatbot.")
+                break
+            except Exception as e:
+                print(f"\nAn unexpected error occurred: {e}")
+                break
 
 # === MAIN EXECUTION ===
 
 def main():
     """main application entry point"""
-    try:
-        chatbot = chat_view()
-        chatbot.run()
-    except KeyboardInterrupt:
-        pass
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    chatbot = chat_view()
+    chatbot.run()
 
 if __name__ == "__main__":
     main()
