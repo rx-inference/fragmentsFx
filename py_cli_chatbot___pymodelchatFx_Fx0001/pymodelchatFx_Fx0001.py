@@ -182,7 +182,8 @@ class chat_view:
             if self.view_model.config.get_bool('enable_streaming', False):
                 show_thinking = self.view_model.config.get_bool('reasoning_active', False)
                 if show_thinking:
-                    print("\nThinking...", end="", flush=True)
+                    print("\nThinking...", flush=True)
+                    print() # new line after thinking
 
                 response = self.view_model.process_user_input(user_input, self._stream_callback)
                 print()  # newline after streaming
