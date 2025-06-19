@@ -10,6 +10,8 @@ This document tracks all significant changes made to the project. The project is
 
 | Date | FxID | Version | Type | Description | Remarks | Stage |
 |------------|------|---------|------|----------------|---------|-------|
+| 2025-06-19 | Fx0001 | v0.7.0 | add | Separate display areas + streaming now stable. | | PROTOTYPING |
+| 2025-06-19 | Fx0001 | v0.6.3 | add | Removed keyboard interrupt exit message. | This was repeatedly added to the code by an AI agent, without prompting it. | PROTOTYPING |
 | 2025-06-19 | Fx0001 | v0.6.2 | mod | Separate display areas + streaming now working. | Unstable: formatting is not correctly displayed. | PROTOTYPING |
 | 2025-06-19 | Fx0001 | v0.6.1 | mod | Reasoning now is in its own display area. | Unstable: streaming is enabled but not working anymore. | PROTOTYPING |
 | 2025-06-19 | Fx0001 | v0.6.0 | add | Added option to show/hide thinking tags + display in info header when program runs. | Unstable | PROTOTYPING |

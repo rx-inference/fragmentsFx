@@ -118,6 +118,7 @@ class chat_view:
     def run(self):
         """main chat loop"""
         self.info_header()
+        print()  # blank line separator before first USER prompt
         
         reasoning_tags = [
             "think", "thinking", "thoughts", "dreaming", "reasoning", "reason",
@@ -208,7 +209,7 @@ class chat_view:
 
                     if current_state == "ANSWERING":
                         if not ai_printed:
-                            print("AI: ", end="")
+                            print("\nAI: ", end="")  # newline separator between reasoning and AI
                             ai_printed = True
                             answer_started = False  # reset for new answer section
                         
@@ -235,7 +236,6 @@ class chat_view:
                 self.view_model.conversation_history.append({'role': 'assistant', 'content': answer_for_history})
 
             except KeyboardInterrupt:
-                print("\n\nExiting chatbot.")
                 break
             except Exception as e:
                 print(f"\nAn unexpected error occurred: {e}")
