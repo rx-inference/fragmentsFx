@@ -1,51 +1,26 @@
 # fragmentsFx (root) - CHANGELOG
 
-notable changes will be documented. this project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html) with the addition, that this repo will also track minor documentation changes and other minor changes, and also minor notations as a v0.0.x to keep the commit history in regards to all subfolders and fragment additions structured and comprehensible. the changelog is not chronologically ordered, but follows a change classification hierarchy always starting with its referece:
+## INFO
 
-1. sec ---> security implementation, update or fix.
-2. chk ---> notable check, test or other investigation important for development progress.
-3. add ---> added feature and functionality.
-4. mod ---> change / modification.
-5. fix ---> bugfix.
-6. doc ---> addition, change / modification or correction in a document or code commentary.
+This document tracks all significant changes made to the project. The project is oriented along [semantic versioning](https://semver.org/spec/v2.0.0.html) (SemVer), which typically uses version numbers in the format "major.minor.patch" to indicate the type of changes made. However, unlike strict SemVer, this project also tracks documentation updates and small improvements as minor version increments to maintain a complete development history.
 
-## FOUNDATION
+<br>
 
-### 2025-06-17
+## CHANGES
 
-### v0.4.7
-
-- Fx_root_doc: refined 'README.md': minor spellcheck corrections + added apache 2.0 license information section. ;;;
-
-### 2025-06-16
-
-### v0.4.6
-
-- Fx_root_doc: minor spelling corrections in this changelog. ;;;
-
-### 2025-06-15
-
-### v0.4.5
-
-- Fx_root_doc: fixed version number. ;;;
-
-### v0.4.4
-
-- Fx_root_add: added info about change classification hierarchy to this changelog. ;;;
-- Fx_root_add: added extended versioning convention, see header of this changelog. ;;;
-- Fx_root_add: added this changelog. ;;;
-- Fx_root_mod: reworked versioning convention: adhering to semver, but including minor changes, and also minor documentation changes, to keep the commit history in regards to all subfolders and fragment modifications structured and comprehensible. ;;;
-- Fx_root_doc: corrected order of changes in this changelog for better readability. ;;;
-
-### 2025-06-12
-
-- Fx_root_add: added Fx0004. ;;;
-- Fx_root_add: added Fx0003. ;;;
-
-### 2025-06-11
-
-- Fx_root_add: added Fx0002. ;;;
-
-### 2025-06-08
-
-- Fx_root_add: added Fx0001. ;;;
+| Date | FxID | Version | Type | Description | Remarks | Stage |
+|------|------|---------|------|-------------|---------|-------|
+| 2025-06-19 | Fx_root | v0.4.9 | mod | Updated '.gitignore' file. |   |   |
+| 2025-06-19 | Fx_root | v0.4.8 | mod | Converted 'CHANGELOG.md' to new standard format. |   |   |
+| 2025-06-17 | Fx_root | v0.4.7 | doc | refined 'README.md': minor spellcheck corrections + added apache 2.0 license information section. |   |   |
+| 2025-06-16 | Fx_root | v0.4.6 | doc | minor spelling corrections in this changelog. |   |   |
+| 2025-06-15 | Fx_root | v0.4.5 | doc | fixed version number. |   |   |
+| 2025-06-15 | Fx_root | v0.4.4 | add | added info about change classification hierarchy to this changelog. |   |   |
+| 2025-06-15 | Fx_root | v0.4.4 | add | added extended versioning convention, see header of this changelog. |   |   |
+| 2025-06-15 | Fx_root | v0.4.4 | add | added this changelog. |   |   |
+| 2025-06-15 | Fx_root | v0.4.4 | mod | reworked versioning convention: adhering to semver, but including minor changes, and also minor documentation changes, to keep the commit history in regards to all subfolders and fragment modifications structured and comprehensible. |   |   |
+| 2025-06-15 | Fx_root | v0.4.4 | doc | corrected order of changes in this changelog for better readability. |   |   |
+| 2025-06-12 | Fx_root | not tracked | add | added Fx0004. |   |   |
+| 2025-06-12 | Fx_root | not tracked | add | added Fx0003. |   |   |
+| 2025-06-11 | Fx_root | not tracked | add | added Fx0002. |   |   |
+| 2025-06-08 | Fx_root | not tracked | add | added Fx0001. |   |   |
