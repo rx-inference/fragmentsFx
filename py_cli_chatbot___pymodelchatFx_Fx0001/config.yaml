@@ -5,10 +5,11 @@
 system_prompt: "You are an AI assistant."
 
 temperature: 0.8         # ai model temperature (understandable as a kind of strictness / creativity value; 0.0 = most strict, 2.0 = most creative; values over 1.0 lead to glitchy responses).
-show_labels: true        # shows "AI:" and "USER:" labels before messages.
+show_labels: false        # shows "AI:" and "USER:" labels before messages.
 reasoning_active: true   # shows a "thinking..." message while the model generates a response (streaming only).
 model: "qwen3:1.7b"      # ai model to load.
 context_window: 4096     # max context window for the ai model.
 max_predict: 2048        # max tokens the ai model predicts.
 enable_streaming: true   # enables real-time message streaming from ollama.
 json_output: false       # forces ollama to output in json format.
+hide_xmltags: true      # hides xml tags from the output.

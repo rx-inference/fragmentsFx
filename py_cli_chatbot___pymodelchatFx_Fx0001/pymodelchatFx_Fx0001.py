@@ -4,6 +4,7 @@ import ollama
 import strictyaml
 import os
 import sys
+import re
 
 # === CONFIGURATION MODEL ===
 
@@ -129,6 +130,15 @@ class chat_view:
     def __init__(self):
         self.view_model = chat_view_model()
         self.is_first_chunk = True
+
+    # --- HELPER FUNCTIONS --------------------------------------------------
+
+    def _sanitize_output(self, text):
+        """removes xml-style tags from text when hide_xmltags is enabled"""
+        if not self.view_model.config.get_bool('hide_xmltags', False):
+            return text
+        # pattern matches <tag ...> or </tag> with letters/digits/underscore
+        return re.sub(r'</?\w+[^>]*?>', '', text)
     
     def info_header(self):
         """displays info header with configuration settings"""
@@ -136,13 +146,9 @@ class chat_view:
         print()
         print("pymodelchatFx_Fx0001")
         print()
-        print(f"model: {config['model']}")
-        print(f"context: {config['context_window']}")
-        print(f"max output tokens {config['max_predict']}")
-        print(f"temperature: {config['temperature']}")
-        print(f"streaming: {config.get('enable_streaming', False)}")
-        print(f"json output: {config.get('json_output', False)}")
-        print(f"reasoning: {config.get('reasoning_active', False)}")
+        # print every config entry
+        for key, value in config.items():
+            print(f"{key}: {value}")
         print()
         print("=" * 30)
     
@@ -154,7 +160,8 @@ class chat_view:
     def display_response(self, response):
         """displays bot response"""
         ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
-        print(f"\n{ai_label}{response}")
+        sanitized_response = self._sanitize_output(response)
+        print(f"\n{ai_label}{sanitized_response}")
     
     def _stream_callback(self, content):
         """callback for streaming response chunks"""
@@ -164,7 +171,8 @@ class chat_view:
             print(f"{ai_label}", end='', flush=True)
             self.is_first_chunk = False
 
-        print(content, end='', flush=True)
+        sanitized_content = self._sanitize_output(content)
+        print(sanitized_content, end='', flush=True)
     
     def run(self):
         """main chat loop"""
