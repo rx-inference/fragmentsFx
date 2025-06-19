@@ -160,10 +160,6 @@ class chat_view:
         """callback for streaming response chunks"""
         if self.is_first_chunk:
             show_thinking = self.view_model.config.get_bool('reasoning_active', False)
-            if show_thinking:
-                # clear "thinking..." line
-                print("\r" + " " * 20 + "\r", end="")
-            
             ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
             print(f"{ai_label}", end='', flush=True)
             self.is_first_chunk = False
