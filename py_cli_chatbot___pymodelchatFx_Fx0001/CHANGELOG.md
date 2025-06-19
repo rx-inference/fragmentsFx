@@ -24,6 +24,7 @@ This document tracks all significant changes made to the project. The project is
 
 | Date | Version | FxID | Type | Description | Remarks | Stage |
 |------------|---------|------|------|----------------|---------|-------|
+| 2025-06-19 | v0.5.3 | Fx0001 | mod | 'Thinking...' tag is now in its own line. | unstable | PROTOTYPING |
 | 2025-06-19 | v0.5.2 | Fx0001 | mod | Implemented new changelog format. |  | PROTOTYPING |
 | 2025-06-19 | v0.5.1 | Fx0001 | mod | Made 'Thinking...' tag persistent. | unstable | PROTOTYPING |
 | 2025-06-17 | v0.5.0 | Fx0001 | mod | Changed header info from 'quickbotFx' ---> 'pymodelchatFx_Fx0001'. |  | PROTOTYPING |
