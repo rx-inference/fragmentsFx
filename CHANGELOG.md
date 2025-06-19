@@ -10,6 +10,7 @@ This document tracks all significant changes made to the project. The project is
 
 | Date | FxID | Version | Type | Description | Remarks | Stage |
 |------|------|---------|------|-------------|---------|-------|
+| 2025-06-19 | Fx_root | v0.4.10 | doc | Updated '.gitignore' file; renamed 'LLMTASKS.md' to 'LMTASKS.md'. |   |   |
 | 2025-06-19 | Fx_root | v0.4.9 | mod | Updated '.gitignore' file. |   |   |
 | 2025-06-19 | Fx_root | v0.4.8 | mod | Converted 'CHANGELOG.md' to new standard format. |   |   |
 | 2025-06-17 | Fx_root | v0.4.7 | doc | refined 'README.md': minor spellcheck corrections + added apache 2.0 license information section. |   |   |

@@ -194,4 +194,4 @@ cython_debug/
 .cursorindexingignore
 
 # Ignore LLMTASKS.md in all directories
-LLMTASKS.md
+LMTASKS.md
