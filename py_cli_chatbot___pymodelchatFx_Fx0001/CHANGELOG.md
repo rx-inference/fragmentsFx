@@ -10,13 +10,14 @@ This document tracks all significant changes made to the project. The project is
 
 | Date | FxID | Version | Type | Description | Remarks | Stage |
 |------------|------|---------|------|----------------|---------|-------|
-| 2025-06-19 | Fx0001 | v0.6.0 | add | Added option to show/hide thinking tags + display in info header when program runs. | unstable | PROTOTYPING |
+| 2025-06-19 | Fx0001 | v0.6.1 | mod | Reasoning now is in its own display area. | Unstable: Streaming is enabled but not working anymore. | PROTOTYPING |
+| 2025-06-19 | Fx0001 | v0.6.0 | add | Added option to show/hide thinking tags + display in info header when program runs. | Unstable | PROTOTYPING |
 | 2025-06-19 | Fx0001 | v0.5.6 | mod | Changed the 'Thinking...' tag to read 'Reasoning...'. |  | PROTOTYPING |
 | 2025-06-19 | Fx0001 | v0.5.5 | mod | Simplified 'config.yaml' and removed ollama setting section as long as we are not using other providers. |  | PROTOTYPING |
 | 2025-06-19 | Fx0001 | v0.5.4 | doc | Simplified 'CHANGELOG.md' header & changed column order. |  | PROTOTYPING |
-| 2025-06-19 | Fx0001 | v0.5.3 | mod | 'Thinking...' tag is now in its own line. | unstable | PROTOTYPING |
+| 2025-06-19 | Fx0001 | v0.5.3 | mod | 'Thinking...' tag is now in its own line. | Unstable | PROTOTYPING |
 | 2025-06-19 | Fx0001 | v0.5.2 | mod | Implemented new changelog format. |  | PROTOTYPING |
-| 2025-06-19 | Fx0001 | v0.5.1 | mod | Made 'Thinking...' tag persistent. | unstable | PROTOTYPING |
+| 2025-06-19 | Fx0001 | v0.5.1 | mod | Made 'Thinking...' tag persistent. | Unstable | PROTOTYPING |
 | 2025-06-17 | Fx0001 | v0.5.0 | mod | Changed header info from 'quickbotFx' ---> 'pymodelchatFx_Fx0001'. |  | PROTOTYPING |
 | 2025-06-17 | Fx0001 | v0.5.0 | add | Added functionality and config entry to enable/disable thinking in reasoning models. |  | PROTOTYPING |
 | 2025-06-16 | Fx0001 | v0.4.8 | doc | Minor spelling corrections in this changelog. |  | PROTOTYPING |

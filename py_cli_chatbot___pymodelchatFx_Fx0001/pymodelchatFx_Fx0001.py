@@ -133,6 +133,24 @@ class chat_view:
 
     # --- HELPER FUNCTIONS --------------------------------------------------
 
+    def _extract_reasoning(self, text):
+        """extracts reasoning content from known reasoning tags and returns (reasoning, rest)"""
+        reasoning_tags = [
+            "think", "thinking", "thoughts", "dreaming", "reasoning", "reason",
+            "reflecting", "reflection", "contemplating", "contemplation", "cot", "chainofthought"
+        ]
+        import re
+        for tag in reasoning_tags:
+            # match <tag>...</tag> (non-greedy)
+            pattern = rf"<{tag}[^>]*?>(.*?)</{tag}>"
+            match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
+            if match:
+                reasoning = match.group(1).strip()
+                # remove the reasoning tag and its content from the text
+                rest = re.sub(pattern, '', text, flags=re.IGNORECASE | re.DOTALL).strip()
+                return reasoning, rest
+        return None, text
+
     def _sanitize_output(self, text):
         """removes xml-style tags from text when hide_xmltags is enabled"""
         if not self.view_model.config.get_bool('hide_xmltags', False):
@@ -158,21 +176,21 @@ class chat_view:
         return input(f"\n{user_label}").strip()
     
     def display_response(self, response):
-        """displays bot response"""
+        """displays bot response with reasoning in a separate area if present"""
         ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
-        sanitized_response = self._sanitize_output(response)
-        print(f"\n{ai_label}{sanitized_response}")
+        reasoning, rest = self._extract_reasoning(response)
+        if reasoning:
+            print(f"\nREASONING: {reasoning}")
+            print(f"\n{ai_label}{rest}", end='')
+        else:
+            print(f"\n{ai_label}{response}", end='')
     
     def _stream_callback(self, content):
-        """callback for streaming response chunks"""
-        if self.is_first_chunk:
-            show_thinking = self.view_model.config.get_bool('reasoning_active', False)
-            ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
-            print(f"{ai_label}", end='', flush=True)
-            self.is_first_chunk = False
-
-        sanitized_content = self._sanitize_output(content)
-        print(sanitized_content, end='', flush=True)
+        """callback for streaming response chunks (buffered for reasoning extraction)"""
+        # buffer all content for post-processing
+        if not hasattr(self, "_stream_buffer"):
+            self._stream_buffer = ""
+        self._stream_buffer += content
     
     def run(self):
         """main chat loop"""
@@ -190,10 +208,23 @@ class chat_view:
             if self.view_model.config.get_bool('enable_streaming', False):
                 show_thinking = self.view_model.config.get_bool('reasoning_active', False)
                 if show_thinking:
-                    print("\nReasoning...", flush=True)
-                    print()
+                    pass
 
-                response = self.view_model.process_user_input(user_input, self._stream_callback)
+                # clear stream buffer before streaming
+                if hasattr(self, "_stream_buffer"):
+                    del self._stream_buffer
+
+                self.view_model.process_user_input(user_input, self._stream_callback)
+                # after streaming, process the full response
+                full_response = getattr(self, "_stream_buffer", "")
+                reasoning, rest = self._extract_reasoning(full_response)
+                if reasoning:
+                    print(f"\nREASONING: {reasoning}")
+                    ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
+                    print(f"\n{ai_label}{rest}", end='')
+                else:
+                    ai_label = "AI: " if self.view_model.config.get_bool('show_labels', True) else ""
+                    print(f"\n{ai_label}{full_response}", end='')
                 print()
             else:
                 response = self.view_model.process_user_input(user_input)
