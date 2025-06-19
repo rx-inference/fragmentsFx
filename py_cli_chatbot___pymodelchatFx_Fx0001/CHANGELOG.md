@@ -10,6 +10,7 @@ This document tracks all significant changes made to the project. The project is
 
 | Date | FxID | Version | Type | Description | Remarks | Stage |
 |------------|------|---------|------|----------------|---------|-------|
+| 2025-06-19 | Fx0001 | v0.5.6 | mod | Changed the 'Thinking...' tag to read 'Reasoning...'. |  | PROTOTYPING |
 | 2025-06-19 | Fx0001 | v0.5.5 | mod | Simplified 'config.yaml' and removed ollama setting section as long as we are not using other providers. |  | PROTOTYPING |
 | 2025-06-19 | Fx0001 | v0.5.4 | doc | Simplified 'CHANGELOG.md' header & changed column order. |  | PROTOTYPING |
 | 2025-06-19 | Fx0001 | v0.5.3 | mod | 'Thinking...' tag is now in its own line. | unstable | PROTOTYPING |
